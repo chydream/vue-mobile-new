@@ -28,4 +28,11 @@ html,body{
 body .el-table th.gutter {
   display: table-cell !important;
 }
+.wrap-flow{
+  .weui-select{
+    height: 42px;
+    line-height: 42px;
+    font-size: 14px;
+  }
+}
 </style>

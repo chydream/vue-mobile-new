@@ -25,7 +25,7 @@
                 </div>
                 <p><em>模块：</em><span>请假条</span></p>
                 <p><em>申请人：</em><span>管理员</span></p>
-                <p><em>时间：</em><span>2019-10-09 13:51:00→2019-10-09 20:51:00</span></p>
+                <p><em>时间：</em><span class="date-time">2019-10-09 13:51:00→2019-10-09 20:51:00</span></p>
                 <p><em>说明：</em><span>77</span></p>
                 <div class="btn-group">
                     <input type="hidden" value="10" name="id">
@@ -314,6 +314,9 @@ export default {
     font-size: 12px;
     color: #aaaaaa;
     margin-top: -2px;
+  }
+  .date-time{
+    line-height: 22px;
   }
   .footer{
     position: fixed;
