@@ -159,3 +159,36 @@ export function exportExcel (res) {
     el.href = URL.createObjectURL(res.data)
     el.click()
 }
+export function getCookiesObj (cookies) {
+  var arr = cookies.split(';')
+  var obj = {}
+  for (var i = 0; i < arr.length; i++) {
+      var newArr = arr[i].split('=')
+      if (newArr[0].trim() != '') {
+        obj[newArr[0].trim()] = newArr[1]
+      }
+  }
+  return obj
+} 
+export function setCookie (name, value, expiresHours) {
+  var cookieString = name + '=' + escape(value)
+  if (expiresHours > 0) {
+    var date = new Date()
+    var ms = expiresHours * 3600 * 1000
+    date.setTime(date.getTime() + ms)
+    cookieString = cookieString + ';expires=' + date.toGMTString()
+  }
+  document.cookie = cookieString
+} 
+
+export function getCookie (name) {
+  var strCookie = document.cookie
+  var arrCookie = strCookie.split('; ')
+  for (var i = 0; i < arrCookie.length; i++) {
+      var arr = arrCookie[i].split('=')
+      if (arr[0] == name) {
+          return arr[1]
+      }
+  }
+  return null
+}

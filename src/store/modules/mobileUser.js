@@ -4,7 +4,7 @@ const mobileUser = {
     state: {
         userInfo: JSON.parse(sessionStorage.getItem('userInfo')) || {},
         role: JSON.parse(sessionStorage.getItem('role')) || [],
-        token: sessionStorage.getItem('token') || '',
+        token: sessionStorage.getItem('token') || '123456',
         menu: JSON.parse(sessionStorage.getItem('menu')) || [],
         permission: {}
     },

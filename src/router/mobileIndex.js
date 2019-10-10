@@ -14,12 +14,52 @@ const router = new Router({
         {
           path: 'index',
           name: 'HomeIndex',
-          component: () => import(/* webpackChunkName: "group-foo" */'@/mobile/mvue/views/home/Home')
+          component: () => import(/* webpackChunkName: "group-foo" */'@/mobile/mvue/views/home/Home'),
+          meta: {
+            title: '首页'
+          }
+        }
+      ]
+    },
+    {
+      path: '/workflow',
+      name: '工作流',
+      component: () => import(/* webpackChunkName: "group-foo" */'@/mobile/mvue/layout/Index'),
+      children: [
+        {
+          path: 'index',
+          name: 'Workflow',
+          component: () => import(/* webpackChunkName: "group-foo" */'@/mobile/mvue/views/workflow/index'),
+          meta: {
+            title: '工作流'
+          }
+        }
+      ]
+    },
+    {
+      path: '/email',
+      name: 'email',
+      component: () => import(/* webpackChunkName: "group-foo" */'@/mobile/mvue/layout/Index'),
+      children: [
+        {
+          path: 'list',
+          name: 'list',
+          component: () => import(/* webpackChunkName: "group-foo" */'@/mobile/mvue/views/email/list')
         },
         {
-          path: 'cal',
-          name: 'Cal',
-          component: () => import(/* webpackChunkName: "group-foo" */'@/mobile/mvue/views/cal/Cal')
+          path: 'detail',
+          name: 'detail',
+          component: () => import(/* webpackChunkName: "group-foo" */'@/mobile/mvue/views/email/detail')
+        },
+        {
+          path: 'write',
+          name: 'write',
+          component: () => import(/* webpackChunkName: "group-foo" */'@/mobile/mvue/views/email/write')
+        },
+        {
+          path: 'man',
+          name: 'man',
+          component: () => import(/* webpackChunkName: "group-foo" */'@/mobile/mvue/views/email/man')
         }
       ]
     },
@@ -51,25 +91,34 @@ router.beforeEach((to, from, next) => {
   Vue.$vux.loading.show({
     text: '加载中'
   })
-  if (store.getters.mobileToken) {
-    if (to.path == '/') {
-      next({path: '/home/index', replace: true})
-      setTimeout(() => {
-        Vue.$vux.loading.hide()
-      }, 200)
+  store
+  .dispatch('mobileCommon/GgetTokenByPC', '')
+  .then(res => {
+    if (store.getters.mobileToken) {
+      if (to.path == '/') {
+        next({path: '/home/index', replace: true})
+        setTimeout(() => {
+          Vue.$vux.loading.hide()
+        }, 200)
+      } else {
+        next()
+      }
     } else {
-      next()
+      if (to.path == '/') {
+        next()
+      } else {
+        next({path: '/', replace: true})
+      } 
     }
-  } else {
-    if (to.path == '/') {
-      next()
-    } else {
-      next({path: '/', replace: true})
-    } 
-  }
+  })
+  .catch(error => {
+    console.log(error)
+    // next({path: '/home/index', replace: true})
+  })
 })
 // 路由生命周期
 router.afterEach((to, from) => {
+  window.document.title = to.meta.title
   setTimeout(() => {
     Vue.$vux.loading.hide()
   }, 200)
