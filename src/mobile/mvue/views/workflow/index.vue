@@ -164,7 +164,7 @@ export default {
     ...mapGetters(['cookiesObj', 'cookieStart'])
   },
   mounted () {
-     this.setTitle('工作流')
+    this.setTitle('工作流')
     console.log(this.cookiesObj)
   },
   methods: {
