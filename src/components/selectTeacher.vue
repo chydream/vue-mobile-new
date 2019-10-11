@@ -11,16 +11,24 @@
 <script>
 import { Checklist, XButton } from 'vux'
 export default {
+    props: ['selected'],
+     watch: {
+        selected: function (indexVal, oldVal) {
+          if (!indexVal) {
+              indexVal = []
+          }
+          this.selectedMan = indexVal
+        }
+    },
      components: {
         Checklist, XButton
     },
     computed: {
-       manList () {
-           return this.$store.state.email.manList
-       }
+      
     },
     data () {
         return {
+            manList: [],
             selectedMan: []
         }
     },
@@ -31,7 +39,10 @@ export default {
     },
    
     mounted () {
-        this.$store.dispatch('email/getManList')
+        this.$store.dispatch('email/getManList').then(d => {
+            this.manList = d
+            // this.selectedMan = this.selected
+        })
     }    
 }
 </script>

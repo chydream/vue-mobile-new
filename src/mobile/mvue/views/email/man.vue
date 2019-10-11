@@ -2,6 +2,7 @@
     <div class="man-con">
         <select-teacher
         @comfirm="comfirm"
+        :selected="selectedMan"
         ></select-teacher>
     </div>
 </template>
@@ -13,11 +14,11 @@ export default {
        selectTeacher
     },
     computed: {
-       
+      
     },
     data () {
         return {
-          
+           selectedMan: []
         }
     },
     methods: {
@@ -30,6 +31,7 @@ export default {
         this.setTitle('选择教师')
     },
     mounted () {
+        this.selectedMan = this.$store.state.email.selectedMan
     }    
 }
 </script>

@@ -15,6 +15,7 @@
 <script>
 import { Grid, GridItem, GroupTitle } from 'vux'
 export default {
+    name: 'Home',
     components: {
       Grid,
       GridItem,
@@ -24,11 +25,11 @@ export default {
       return {
         grid: '111',
         items: [
-          {icon: 'fa fa-envelope-o', name: '邮件'},
-          {icon: 'fa fa-commenting-o', name: '通知公告'},
+          {icon: 'fa fa-envelope-o', name: '邮件', url: '/email/list'},
+          {icon: 'fa fa-commenting-o', name: '通知公告', url: '/notice/index'},
           {icon: 'fa fa-file-text-o', name: '工作流', url: '/workflow/index'},
-          {icon: 'fa fa-wpforms', name: '考勤'},
-          {icon: 'fa fa-inbox', name: '工资条'}
+          {icon: 'fa fa-wpforms', name: '考勤', url: '/workflow/index'},
+          {icon: 'fa fa-inbox', name: '工资条', url: '/payroll/index'}
         ]
       }
     },

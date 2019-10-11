@@ -1,22 +1,21 @@
 <template>
   <div class="wrap-flow">
-    <!-- <span slot="topLeft">111</span> -->
     <div class="order_checked">
+      <div class="flow-item" :class="{'active': tab == '我所有申请'}">
         <flexbox>
           <flexbox-item :span="4">
             <group class="flex-demo" >
-              <selector placeholder="请选择省份" v-model="demo02" :options="list"></selector>
+              <selector placeholder="选择模块" v-model="selectItem" :options="selectList"></selector>
             </group>
           </flexbox-item>
           <flexbox-item>
             <group class="flex-demo input-search" >
-              <x-input :max="5" @on-change="change" v-model="maxValue">
+              <x-input :max="5" @on-change="inputChange" v-model="maxValue">
                 <x-button slot="right" type="primary" mini>搜索</x-button>
               </x-input>
              </group>
           </flexbox-item>
         </flexbox>
-        <!-- <div class="order_checked_head">预约记录总共有：<span style="color:red;">12</span>条</div> -->
         <div class="order_checked_body">
             <div class="order_checked_item">
                 <div class="item-head">
@@ -29,58 +28,122 @@
                 <p><em>说明：</em><span>77</span></p>
                 <div class="btn-group">
                     <input type="hidden" value="10" name="id">
-                    <input class="btn_done" type="button" value="操作">
+                    <input class="btn_done" type="button" value="操作" @click="showAction">
+                    <a onclick="" class="detail" href="###">详情&gt;&gt;</a>
+                </div>
+                <span class="item-status">待处理</span>
+            </div>
+            <div class="order_checked_item">
+                <div class="item-head">
+                   <h3><img src="http://demo1.rockoa.com/upload/face/1.jpg" align="absmiddle">[事假]共7.0(0.88天)小时</h3>
+                   <p>2019-10-10 14:55:18</p>
+                </div>
+                <p><em>模块：</em><span>请假条</span></p>
+                <p><em>申请人：</em><span>管理员</span></p>
+                <p><em>时间：</em><span class="date-time">2019-10-09 13:51:00→2019-10-09 20:51:00</span></p>
+                <p><em>说明：</em><span>77</span></p>
+                <div class="btn-group">
+                    <input type="hidden" value="10" name="id">
+                    <input class="btn_done" type="button" value="操作" @click="showAction">
                     <a onclick="" class="detail" href="###">详情&gt;&gt;</a>
                 </div>
             </div>
-            <!-- <div class="order_checked_item">
-                <p><em>预约姓名：</em><span>张三</span></p>
-                <p><em>身份证号：</em><span>351119197002022150</span></p>
-                <p><em>预约目的：</em><span>龙岩地委调查工作组</span></p>
-                <p><em>预约时间：</em><span>19540608</span></p>
-                <p><em>预约详情：</em><span>龙岩地委调查工作组龙岩地委调查工作组龙岩地委调查工作</span></p>
-                <div class="btn-group">
-                    <input type="hidden" value="12" name="id">
-                    <input class="btn_done" type="button" value="处理">
-                </div>
-            </div> -->
         </div>
+      </div>
+      <div class="flow-item" :class="{active: tab == '处理未通过'}">
+        <flexbox>
+          <flexbox-item :span="4">
+            <group class="flex-demo" >
+              <selector placeholder="选择模块" v-model="selectItem" :options="selectList"></selector>
+            </group>
+          </flexbox-item>
+          <flexbox-item>
+            <group class="flex-demo input-search" >
+              <x-input :max="5" @on-change="inputChange" v-model="maxValue">
+                <x-button slot="right" type="primary" mini>搜索</x-button>
+              </x-input>
+             </group>
+          </flexbox-item>
+        </flexbox>
+        <div class="order_checked_body">
+            <div class="order_checked_item">
+                <div class="item-head">
+                   <h3><img src="http://demo1.rockoa.com/upload/face/1.jpg" align="absmiddle">[事假]共7.0(0.88天)小时</h3>
+                   <p>2019-10-10 14:55:18</p>
+                </div>
+                <p><em>模块：</em><span>请假条ddddddd</span></p>
+                <p><em>申请人：</em><span>管理员</span></p>
+                <p><em>时间：</em><span class="date-time">2019-10-09 13:51:00→2019-10-09 20:51:00</span></p>
+                <p><em>说明：</em><span>77</span></p>
+                <div class="btn-group">
+                    <input type="hidden" value="10" name="id">
+                    <input class="btn_done" type="button" value="操作" @click="showAction">
+                    <a onclick="" class="detail" href="###">详情&gt;&gt;</a>
+                </div>
+            </div>
+        </div>
+      </div>
     </div>
     <div class="footer">
-      <!-- <tabbar>
-        <tabbar-item selected>
-          <i class="fa fa-comment-o" slot="icon"></i>
-          <span slot="label">我所有申请</span>
-        </tabbar-item>
-        <tabbar-item>
-          <i class="fa fa-bars" slot="icon"></i>
-          <span slot="label">处理未通过</span>
-        </tabbar-item>
-        <tabbar-item>
-          <i class="fa fa-user" slot="icon"></i>
-          <span slot="label">流程申请</span>
-        </tabbar-item>
-      </tabbar> -->
       <sticky :check-sticky-support="false" :offset="46">
         <tab :line-width=1>
-          <tab-item :selected="demo4 === item" v-for="(item, index) in list4" @click="demo4 = item" :key="index">{{item}}</tab-item>
+          <tab-item :selected="tab === item" v-for="(item, index) in tabItems" @click.native="activeTabItem(item)" :key="index">{{item}}</tab-item>
         </tab>
       </sticky>
     </div>
+    <!-- 操作 -->
+    <actionsheet
+      v-model="isAction"
+      :menus="actionMenu"
+      @on-click-menu="actionClick"
+      @on-after-hide="log('after hide')"
+      @on-after-show="log('after show')"></actionsheet>
+    <!-- 我所有申请 -->
+    <actionsheet
+      v-model="isApply"
+      :menus="applyMenu"
+      @on-click-menu="applyClick"
+      @on-after-hide="log('after hide')"
+      @on-after-show="log('after show')"></actionsheet>
+    <!-- 流程申请 -->
+    <actionsheet
+      v-model="isWorkflow"
+      :menus="workflowMenu"
+      @on-click-menu="workflowClick"
+      @on-after-hide="log('after hide')"
+      @on-after-show="log('after show')"></actionsheet>
 </div>
 </template>
 <script>
-import { Flexbox, FlexboxItem, Selector, Group, XInput, XButton, Tabbar, TabbarItem, Tab, TabItem, Sticky } from 'vux'
+import { Flexbox, FlexboxItem, Selector, Group, XInput, XButton, Tabbar, TabbarItem, Tab, TabItem, Sticky, Actionsheet } from 'vux'
 import {mapState, mapGetters} from 'vuex'
 export default {
+  name: 'Workflow',
   data () {
     return {
-      msg: '111',
-      demo02: '',
-      list: [{key: 'gd', value: '广东'}, {key: 'gx', value: '广西'}],
+      selectItem: '',
+      selectList: [{key: 'gd', value: '广东'}, {key: 'gx', value: '广西'}],
       maxValue: '',
-      list4: ['我所有申请', '处理未通过', '流程申请'],
-      demo4: '流程申请'
+      tabItems: ['我所有申请', '处理未通过', '流程申请'],
+      tab: '我所有申请',
+      isAction: false,
+      actionMenu: {
+        menu1: '详情',
+        menu2: '编辑',
+        menu3: '删除'
+      },
+      isApply: false,
+      applyMenu: {
+        menu1: '未通过',
+        menu2: '已完成',
+        menu3: '待处理',
+        menu4: '抄送给我'
+      },
+      isWorkflow: false,
+      workflowMenu: {
+        menu1: '请假条',
+        menu2: '调课'
+      }
     }
   },
   components: {
@@ -94,7 +157,8 @@ export default {
     TabbarItem,
     Tab,
     TabItem,
-    Sticky
+    Sticky,
+    Actionsheet
   },
   computed: {
     ...mapGetters(['cookiesObj', 'cookieStart'])
@@ -104,7 +168,23 @@ export default {
     console.log(this.cookiesObj)
   },
   methods: {
-    change () {}
+    log () {},
+    inputChange () {},
+    showAction () {
+      this.isAction = true
+    },
+    activeTabItem (item) {
+      this.tab = item
+      if (item == '我所有申请') {
+        this.isApply = true
+      }
+      if (item == '流程申请') {
+        this.isWorkflow = true
+      }
+    },
+    actionClick () {},
+    applyClick () {},
+    workflowClick () {}
   }
 }
 </script>
@@ -328,10 +408,26 @@ export default {
     // background: #f6f6f6;
   }
   .input-search .weui-cell{
-    padding: 7px 15px;
+    padding: 6px 5px;
   }
-  .weui-select{
-    font-size: 14px;
+  .flow-item{
+    display: none;
+  }
+  .active{
+    display: block !important;
+  }
+  .item-status{
+    position:absolute;
+    right: 0;
+    top: 0;
+    height: 20px;
+    line-height: 20px;
+    font-size: 12px !important;
+    background: #1AAD19;
+    color: #fff !important;
+    text-align: center;
+    border: none;
+    padding: 0 6px;
   }
 }
 </style>

@@ -55,7 +55,7 @@ export default {
   computed: {
     ...mapGetters(['title']),
     leftOptions () {
-      console.log(this.$route.path)
+      // console.log(this.$route.path)
       return {
         showBack: this.$route.path !== '/home/index'
       }

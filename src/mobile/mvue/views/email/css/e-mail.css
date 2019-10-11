@@ -35,7 +35,6 @@
 .s_name li a{padding-bottom: 0.13rem;border-bottom: 0.05rem solid #fff;width:100%;display:block;color:#888;line-height:0.58rem;padding-bottom:0.3rem;height:100%;}
 .s_name span{border-right:0.01rem solid #888;width:100%; line-height:0.27rem;display:block;margin-top:0.3rem;}
 .s_name li.on a{border-bottom: 0.05rem solid #0a8de5;color:#0a8de5 ;}
-.s_tt{display: none;}
 
 /**/
 .s_tit-left{float:left; margin:0.3rem 0.3rem 0 0.3rem;}
@@ -235,7 +234,7 @@ a.qj-on i{display:block;background:url(../img/qj-on-ico.png) no-repeat;width:0.5
 .up-sc{width:100%; padding:0.1rem 0;}
 .up-sc ul{clear:both;overflow:hidden;}
 .up-sc li{float:left;margin:0.32rem;position:relative;}
-a.s-c {
+.s-c {
 	background: url(../img/dx-ico.png) no-repeat;
 	background-size: 0.4rem 0.4rem;
 	width: 0.4rem;
@@ -383,11 +382,12 @@ a.tj-cx {
 	width: 6.32rem;
 	margin: 0.15rem auto;
 	background: #fff url(../img/fdj-ico.png) no-repeat 0.2rem center;
-	padding-left:0.4rem;
+	padding-left:0.9rem;
 	border: 0.01rem solid #ddd;
 	border-radius: 0.25rem;
 	height:0.56rem;
 	display:block;
+	box-sizing: border-box;
 }
 
 /**/
@@ -419,7 +419,7 @@ a.tj-cx {
 .left{float:left;}
 .e-writing{overflow:hidden;font-size:0.28rem; color:#333;width:100%;}
 .e-writing li{padding:0.2rem; border-bottom:0.01rem solid #ddd;overflow:hidden;}
-.writing-in{border:none;height:0.36rem;float:left;width:5rem; line-height:0.36rem;padding-left:0.1rem;font-size:0.28rem;
+.writing-in{border:none;float:left;width:5rem;padding-left:0.1rem;font-size:0.28rem;
 	overflow: hidden;white-space: nowrap;text-overflow: ellipsis;}
 .w-tj{ width:0.4rem; height:0.4rem; background:url(../img/tj-ico.png) no-repeat;background-size:0.4rem 0.4rem;float:right;display:block;} 
 .e-xz {

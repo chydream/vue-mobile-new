@@ -15,7 +15,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="less">
 @import url('./style/reset.css');
 html,body{
   width: 100%;
