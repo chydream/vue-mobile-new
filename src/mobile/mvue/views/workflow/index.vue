@@ -73,6 +73,7 @@
 import { Flexbox, FlexboxItem, Selector, Group, XInput, XButton, Tabbar, TabbarItem, Tab, TabItem, Sticky } from 'vux'
 import {mapState, mapGetters} from 'vuex'
 export default {
+  name: 'WorkFlow',
   data () {
     return {
       msg: '111',
@@ -100,7 +101,7 @@ export default {
     ...mapGetters(['cookiesObj', 'cookieStart'])
   },
   mounted () {
-     this.setTitle('工作流')
+    this.setTitle('工作流')
     console.log(this.cookiesObj)
   },
   methods: {

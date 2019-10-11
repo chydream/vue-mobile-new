@@ -15,6 +15,7 @@
 <script>
 import { Grid, GridItem, GroupTitle } from 'vux'
 export default {
+    name: 'Home',
     components: {
       Grid,
       GridItem,

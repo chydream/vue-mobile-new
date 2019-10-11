@@ -39,7 +39,7 @@ const mobileCommon = {
             getTokenByPC(params).then(res => {
               var result = JSON.parse(res)
               // console.log(result)
-              if (result.Code == 200) {
+              if (result.Code == 200 && result.Data) {
                 var strData = result.Data
                 setCookie('img', strData.Img, 0)
                 setCookie('loginUserId', strData.UserId, 0)
